@@ -22,3 +22,6 @@ alias nvim='~/nvim.appimage'
 
 # Use python3 per default
 alias python='python3'
+
+# Run tmux with config file from our dotfiles
+alias tmux='tmux -f /personal/dotfiles/tmux/.tmux.conf'

@@ -7,7 +7,7 @@ This will probably grow over time..
 
 ```
 ├── shell/       # For continuous integration files
-├── /            #
+├── tmux/        # Configuration for TMUX
 ├── /            #
 ├── /            #
 ├── /            #
