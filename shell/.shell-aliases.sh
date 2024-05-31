@@ -1,12 +1,4 @@
 # ----------------------------------------------------------------
-#  GIT & Co
-# ----------------------------------------------------------------
-
-# Commits with a timestamp of 12 hours in the future
-alias future-commit='git commit --date "$(date -d +12hours)"'
-
-
-# ----------------------------------------------------------------
 #  Editors
 # ----------------------------------------------------------------
 
@@ -22,6 +14,3 @@ alias nvim='~/nvim.appimage'
 
 # Use python3 per default
 alias python='python3'
-
-# Run tmux with config file from our dotfiles
-alias tmux='tmux -f /personal/dotfiles/tmux/.tmux.conf'
