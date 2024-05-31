@@ -14,3 +14,6 @@ alias nvim='~/nvim.appimage'
 
 # Use python3 per default
 alias python='python3'
+
+alias ls='ls --color'
+alias ll='ls -al'
