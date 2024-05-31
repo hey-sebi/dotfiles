@@ -62,10 +62,16 @@ git clone https://github.com/Pilaton/OhMyZsh-full-autoupdate.git ${ZSH_CUSTOM:-~
 git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions
 ```
 
-## Install zoxide
+## Installation of additional tools that integrate with zsh
 
-This is not related to zsh, but if you want to use the zoxide plugin, you need to install zoxide itself first:
+### zoxide
+
+Necessary for the zoxide plugin
 
 ```
 curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
 ```
+
+### fzf
+
+Fuzzyfinder. Install via package manager. Necessary for fzf shell integration

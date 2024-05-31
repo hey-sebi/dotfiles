@@ -136,8 +136,10 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 
 # -----------------------------------------------------------------------------
-#  Autosuggestion case insensitive to be more fuzzy
+#  fzf fuzzyfinder shell integration
 # -----------------------------------------------------------------------------
+#eval "(fzf --zsh)"
+# TODO: not properly working
 
 # -----------------------------------------------------------------------------
 #  Language/locale settings
