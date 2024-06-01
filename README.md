@@ -3,9 +3,9 @@ Contains configuration and setup files for my personal use. Use what you want, b
 
 ## Setup
 To use the dotfiles we symlink them to the home directory using GNU stow.<br>
-There is a script which does that for us: `install.sh`. Run this file from the repository root directory (where it is located).
+There is a script which does that for us: `stow.sh`. Run this file from the repository root directory (where it is located).
 
-In case you need to remove the symlinks, use `uninstall.sh`.
+In case you need to remove the symlinks, use `unstow.sh`.
 
 ## Contents
 
