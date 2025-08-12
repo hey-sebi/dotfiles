@@ -86,8 +86,8 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Plugin overview: https://github.com/ohmyzsh/ohmyzsh/wiki/Plugins
 plugins=(
   docker
-  git
-  git-prompt
+  #git
+  #git-prompt
   ohmyzsh-full-autoupdate
   web-search
   z
@@ -111,6 +111,7 @@ source $ZSH/oh-my-zsh.sh
 bindkey -e # emacs mode
 bindkey '^n' history-search-forward
 bindkey '^p' history-search-backward
+bindkey '^[[Z' autosuggest-accept  # shift + tab
 
 # -----------------------------------------------------------------------------
 #  Command history (e.g. for reverse search / zsh-autosuggestions)
@@ -146,16 +147,16 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 # -----------------------------------------------------------------------------
 
 export LANGUAGE="en_US:en"
-export LC_ALL="en_US.UTF=8"
+export LC_ALL="en_US.UTF-8"
 export LANG="en_US.UTF-8"
 
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='nvim'
+else
+  export EDITOR='nvim'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
