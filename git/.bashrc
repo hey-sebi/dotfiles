@@ -2,7 +2,7 @@
 export COLORTERM=truecolor
 export TERM=xterm-256color
 
-# --- Catppuccin Macchiato palette ---
+# --- Catppuccin Macchiato color palette ---
 _reset=$'\[\e[0m\]'
 _fg_lavender=$'\[\e[38;2;183;189;248m\]'
 _fg_blue=$'\[\e[38;2;138;173;244m\]'
