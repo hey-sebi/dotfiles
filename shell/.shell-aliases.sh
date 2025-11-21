@@ -11,3 +11,6 @@ alias python='python3'
 
 alias ls='ls --color'
 alias ll='ls -al'
+
+# Lazygit shorthand
+alias lg='lazygit'
