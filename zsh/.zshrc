@@ -7,10 +7,11 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 # -----------------------------------------------------------------------------
 #  Keybindings
 # -----------------------------------------------------------------------------
-bindkey -e # emacs mode
+# bindkey -e # emacs mode
+bindkey -v # vim mode
 bindkey '^n' history-search-forward
 bindkey '^p' history-search-backward
-bindkey '^[[Z' autosuggest-accept  # shift + tab
+# bindkey '^[[Z' autosuggest-accept  # shift + tab
 
 # -----------------------------------------------------------------------------
 #  Command history (e.g. for reverse search / zsh-autosuggestions)
@@ -34,12 +35,6 @@ setopt hist_ignore_space
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 # use colors configured for 'ls' (like folder colors etc)
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-
-# -----------------------------------------------------------------------------
-#  fzf fuzzyfinder shell integration
-# -----------------------------------------------------------------------------
-#eval "(fzf --zsh)"
-# TODO: not properly working
 
 # -----------------------------------------------------------------------------
 #  Language/locale settings
@@ -108,3 +103,9 @@ fi
 #  zoxide
 # -----------------------------------------------------------------------------
 eval "$(zoxide init zsh)"
+
+# -----------------------------------------------------------------------------
+#  fzf
+# -----------------------------------------------------------------------------
+# Set up fzf key bindings and fuzzy completion
+# source <(fzf --zsh) TODO
