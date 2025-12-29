@@ -6,7 +6,14 @@ config.automatically_reload_config = true
 
 -- looks
 config.color_scheme = "catppuccin-macchiato"
-config.font = wezterm.font("JetBrains Mono")
+-- config.color_scheme = "Rosé Pine (Gogh)"
+config.font = wezterm.font_with_fallback({
+	"JetBrains Mono",
+	"Fira Code",
+	"Meslo",
+})
+-- disable ligatures
+config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 config.visual_bell = {}
 
 -- sounds
