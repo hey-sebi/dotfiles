@@ -112,7 +112,7 @@ end)
 
 -- TMUX-like key bindings
 config.leader = {
-	key = "#",
+	key = "\\",
 	mods = "CTRL",
 	timeout_milliseconds = 2000,
 }
