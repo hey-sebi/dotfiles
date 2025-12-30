@@ -8,15 +8,35 @@ config.automatically_reload_config = true
 config.color_scheme = "catppuccin-macchiato"
 -- config.color_scheme = "Rosé Pine (Gogh)"
 config.font = wezterm.font_with_fallback({
-	"JetBrains Mono",
-	"Fira Code",
-	"Meslo",
+	{ family = "JetBrainsMono Nerd Font" },
+	{ family = "Nerd Font Symbols" },
+	{ family = "Segoe UI Emoji" },
 })
+
+config.font_rules = {
+	{
+		intensity = "Bold",
+		font = wezterm.font_with_fallback({
+			{ family = "JetBrainsMono Nerd Font", weight = "Bold" },
+			{ family = "Nerd Font Symbols" },
+			{ family = "Segoe UI Emoji" },
+		}),
+	},
+	{
+		italic = true,
+		font = wezterm.font_with_fallback({
+			{ family = "JetBrainsMono Nerd Font", style = "Italic" },
+			{ family = "Nerd Font Symbols" },
+			{ family = "Segoe UI Emoji" },
+		}),
+	},
+}
+
 -- disable ligatures
 config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
-config.visual_bell = {}
 
--- sounds
+-- bells
+config.visual_bell = {}
 config.audible_bell = "Disabled"
 
 -- tabs / window decorations / scrolling
@@ -63,7 +83,7 @@ config.colors = {
 	},
 }
 
--- Customize the window frame (optional, for titlebar matching)
+-- Customize the window frame
 config.window_frame = {
 	font = wezterm.font({ family = "Roboto", weight = "Bold" }),
 	active_titlebar_bg = "#1e2030", -- Match title bar color with the terminal background
@@ -186,6 +206,19 @@ config.keys = {
 		mods = "LEADER",
 		key = "UpArrow",
 		action = wezterm.action.AdjustPaneSize({ "Up", 5 }),
+	},
+	{
+		-- Set tab title
+		mods = "LEADER",
+		key = "r",
+		action = wezterm.action.PromptInputLine({
+			description = "Enter new name for tab",
+			action = wezterm.action_callback(function(window, _, line)
+				if line then
+					window:active_tab():set_title(line)
+				end
+			end),
+		}),
 	},
 }
 
