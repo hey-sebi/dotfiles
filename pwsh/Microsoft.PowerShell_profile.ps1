@@ -5,6 +5,10 @@ Set-PSReadlineKeyHandler -Key Tab -Function Complete
 # load my own version of catppuccin theme
 oh-my-posh init pwsh --config "$home/.config/oh-my-posh/catppuccin_macchiato.omp.json" | Invoke-Expression
 
+function UnmountMlrNetworkDirs { net use * /delete }
+Set-Alias -Name unmountall -Value UnmountMlrNetworkDirs
+
+Set-Alias -Name lg -Value lazygit
 
 # Ensure modern posh-git on pwsh even if choco installed an old one
 # TODO: this should be removed once there is a proper choco package
