@@ -11,6 +11,8 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 bindkey -v # vim mode
 bindkey '^n' history-search-forward
 bindkey '^p' history-search-backward
+bindkey -M viins '^R' history-incremental-search-backward
+
 # bindkey '^[[Z' autosuggest-accept  # shift + tab
 
 # -----------------------------------------------------------------------------
@@ -103,6 +105,11 @@ fi
 #  zoxide
 # -----------------------------------------------------------------------------
 eval "$(zoxide init zsh)"
+
+# -----------------------------------------------------------------------------
+#  rust / cargo
+# -----------------------------------------------------------------------------
+#source $HOME/.cargo/env
 
 # -----------------------------------------------------------------------------
 #  fzf
