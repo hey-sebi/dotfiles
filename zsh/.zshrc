@@ -116,3 +116,14 @@ eval "$(zoxide init zsh)"
 # -----------------------------------------------------------------------------
 # Set up fzf key bindings and fuzzy completion
 # source <(fzf --zsh) TODO
+
+
+# -----------------------------------------------------------------------------
+#  Completion for docker dev tools
+# -----------------------------------------------------------------------------
+
+if [ -f "$HOME/.local/bin/create_container.sh" ] ; then
+  if command -v docker >/dev/null; then
+    compdef '_values "containers" $(docker ps -a --format {{.Names}})' attach_container.sh destroy_container.sh
+  fi
+fi
