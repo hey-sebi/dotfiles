@@ -3,6 +3,11 @@ local config = wezterm.config_builder()
 
 -- autoreload upon saving this file
 config.automatically_reload_config = true
+-- explicitly allow clipboard interaction
+config.set_environment_variables = {
+	-- This ensures the remote knows we support OSC 52 (for clipboard support)
+	["TERM"] = "xterm-256color",
+}
 
 -- looks
 config.color_scheme = "catppuccin-macchiato"
@@ -12,6 +17,7 @@ config.font = wezterm.font_with_fallback({
 	{ family = "Nerd Font Symbols" },
 	{ family = "Segoe UI Emoji" },
 })
+config.font_size = 11.0
 
 config.font_rules = {
 	{
@@ -132,7 +138,7 @@ end)
 
 -- TMUX-like key bindings
 config.leader = {
-	key = "\\",
+	key = " ",
 	mods = "CTRL",
 	timeout_milliseconds = 2000,
 }
