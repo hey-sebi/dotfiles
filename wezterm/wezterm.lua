@@ -237,4 +237,42 @@ for i = 1, 9 do
 	})
 end
 
+-- Launch menu options
+config.launch_menu = {}
+
+if wezterm.target_triple == "x86_64-pc-windows-msvc" then
+	table.insert(config.launch_menu, {
+		label = "PowerShell Core",
+		args = { "pwsh", "-NoLogo" },
+	})
+	table.insert(config.launch_menu, {
+		label = "PowerShell Core (Admin)",
+		-- Uses gsudo to elevate the shell right inside the same WezTerm tab
+		args = { "gsudo", "pwsh", "-NoLogo" },
+	})
+	table.insert(config.launch_menu, {
+		label = "Git Bash",
+		args = { "C:\\Program Files\\Git\\bin\\bash.exe", "-l" },
+	})
+	table.insert(config.launch_menu, {
+		label = "WSL (Default Distro)",
+		args = { "wsl" },
+	})
+else
+	-- Fallbacks/Options for Linux/macOS
+	table.insert(config.launch_menu, {
+		label = "Zsh",
+		args = { "zsh", "-l" },
+	})
+	table.insert(config.launch_menu, {
+		label = "Bash",
+		args = { "bash", "-l" },
+	})
+end
+
+table.insert(config.keys, {
+	mods = "LEADER",
+	key = "o",
+	action = wezterm.action.ShowLauncherArgs({ flags = "FUZZY|LAUNCH_MENU_ITEMS" }),
+})
 return config
