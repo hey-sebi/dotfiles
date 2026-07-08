@@ -150,12 +150,12 @@ config.keys = {
 	},
 	{
 		mods = "LEADER",
-		key = "x",
+		key = "d",
 		action = wezterm.action.CloseCurrentPane({ confirm = true }),
 	},
 	{
 		mods = "LEADER",
-		key = "b",
+		key = "p",
 		action = wezterm.action.ActivateTabRelative(-1),
 	},
 	{
