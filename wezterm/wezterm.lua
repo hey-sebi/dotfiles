@@ -275,4 +275,9 @@ table.insert(config.keys, {
 	key = "o",
 	action = wezterm.action.ShowLauncherArgs({ flags = "FUZZY|LAUNCH_MENU_ITEMS" }),
 })
+
+-- Integrate workspaces config (MUST be called after config.keys is defined)
+local workspaces = require("workspaces")
+workspaces.apply_to_config(config)
+
 return config
