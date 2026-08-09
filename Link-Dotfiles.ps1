@@ -1,6 +1,7 @@
 <#  Link-Dotfiles.ps1
 
 Usage:
+  .\Link-Dotfiles.ps1 [-DryRun] [-Verbose]
   .\Link-Dotfiles.ps1 -RepoRoot 'C:\myrepos\dotfiles' [-DryRun] [-Verbose]
 
 NOTE Add/modify entries in $Items below to manage more files.
@@ -10,8 +11,8 @@ NOTE Add/modify entries in $Items below to manage more files.
 
 [CmdletBinding(SupportsShouldProcess=$true)]
 param(
-  [Parameter(Mandatory)]
-  [string]$RepoRoot,
+  [Parameter(Mandatory=$false)]
+  [string]$RepoRoot = $PSScriptRoot,
 
   [switch]$DryRun
 )
@@ -79,7 +80,10 @@ function Link-Item([string]$Name, [string]$RepoRel, [string]$DestPath) {
   # If destination already correct link, done
   if (Is-Link $DestPath) {
     $currentTarget = Get-LinkTarget $DestPath
-    if ($currentTarget -and (Resolve-Path -LiteralPath $currentTarget).Path -eq (Resolve-Path -LiteralPath $TargetPath).Path) {
+    $resCurrent = if ($currentTarget) { Resolve-Path -LiteralPath $currentTarget -ErrorAction SilentlyContinue }
+    $resolvedCurrent = if ($resCurrent) { $resCurrent.Path } else { $null }
+    $resolvedTarget  = (Resolve-Path -LiteralPath $TargetPath).Path
+    if ($resolvedCurrent -and $resolvedCurrent -eq $resolvedTarget) {
       Write-Host "  - Already linked correctly. Skipping."
       return
     }
@@ -103,7 +107,8 @@ function Link-Item([string]$Name, [string]$RepoRel, [string]$DestPath) {
   # Verify
   if (-not $DryRun) {
     $currentTarget = Get-LinkTarget $DestPath
-    $resolvedCurrent = if ($currentTarget) { (Resolve-Path -LiteralPath $currentTarget -ErrorAction SilentlyContinue).Path }
+    $resCurrent = if ($currentTarget) { Resolve-Path -LiteralPath $currentTarget -ErrorAction SilentlyContinue }
+    $resolvedCurrent = if ($resCurrent) { $resCurrent.Path } else { $null }
     $resolvedTarget  = (Resolve-Path -LiteralPath $TargetPath).Path
     if ($resolvedCurrent -and $resolvedCurrent -eq $resolvedTarget) {
       Write-Host "  - OK."
@@ -136,18 +141,19 @@ $Items = @(
   },
   @{
     Name    = 'Wezterm config'
-    RepoRel = 'wezterm\wezterm.lua'
-    Dest    = Join-Path $HOME '.config\wezterm\wezterm.lua'
+    RepoRel = 'wezterm'
+    Dest    = Join-Path $HOME '.config\wezterm'
+  },
+  @{
+    Name    = 'Starship config'
+    RepoRel = 'starship\.config\starship.toml'
+    Dest    = Join-Path $HOME '.config\starship.toml'
+  },
+  @{
+    Name    = 'Shell aliases'
+    RepoRel = 'shell\.shell-aliases.sh'
+    Dest    = Join-Path $HOME '.shell-aliases.sh'
   }
-  # @{
-  #   Name    = 'VS Code settings'
-  #   RepoRel = 'vscode\settings.json'
-  #   Dest    = Join-Path $env:APPDATA 'Code\User\settings.json'
-  # }
-  # Add more:
-  # @{
-  #   Name='SSH config'; RepoRel='ssh\config'; Dest=Join-Path $HOME '.ssh\config'
-  # }
 )
 
 # Resolve RepoRoot once

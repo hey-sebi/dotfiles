@@ -2,10 +2,27 @@
 Contains configuration and setup files for my personal use. Use what you want, but use it at your personal risk.
 
 ## Setup
-To use the dotfiles we symlink them to the home directory using GNU stow.<br>
-There is a script which does that for us: `stow.sh`. Run this file from the repository root directory (where it is located).
 
-In case you need to remove the symlinks, use `unstow.sh`.
+### Windows (PowerShell)
+Run the PowerShell linking script from the root of the repository:
+```pwsh
+.\Link-Dotfiles.ps1
+```
+Options:
+- `-DryRun`: Preview what links will be created without making changes.
+- `-Verbose`: Print detailed path info.
+
+This creates symlinks / directory junctions for Wezterm (`~/.config/wezterm`), PowerShell profile, Starship config, Git bash config, and shell aliases.
+
+### Linux / macOS (GNU Stow)
+To symlink dotfiles using GNU Stow, run from the root of the repository:
+```bash
+./stow.sh
+```
+To remove the symlinks:
+```bash
+./unstow.sh
+```
 
 ## Contents
 
