@@ -3,11 +3,9 @@ local config = wezterm.config_builder()
 
 -- autoreload upon saving this file
 config.automatically_reload_config = true
--- explicitly allow clipboard interaction
-config.set_environment_variables = {
-	-- This ensures the remote knows we support OSC 52 (for clipboard support)
-	["TERM"] = "xterm-256color",
-}
+
+-- Explicitly enable clipboard access from remote sessions via OSC 52
+config.term = "xterm-256color"
 
 -- looks
 config.color_scheme = "catppuccin-macchiato"
