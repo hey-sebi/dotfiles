@@ -71,34 +71,26 @@ __apply_git_mode
 # Change the mode on demand: prompt-git fast|rich|counts|off
 prompt-git() { PROMPT_GIT_MODE="$1"; __apply_git_mode; }
 
-# Built-in path shortening: keep only last 3 dirs
-PROMPT_DIRTRIM=3
+# --- Prompt setup ---
+if ! command -v starship &>/dev/null; then
+  [[ -n "$LOCALAPPDATA" && -d "$LOCALAPPDATA/Microsoft/WinGet/Links" ]] && export PATH="$PATH:$LOCALAPPDATA/Microsoft/WinGet/Links"
+fi
 
-# Build prompt
-__make_ps1() {
-  local last=$?
-  local b=""          # will be like " (feature/xyz)" including space + parens
-
-  if type __git_ps1 >/dev/null 2>&1; then
-    b="$(__git_ps1 ' (%s)')"   # <- echo once, capture once
+if command -v starship &>/dev/null; then
+  # In Git Bash, prefer POSIX forward slashes in directory paths
+  _starship_cfg="${XDG_CONFIG_HOME:-$HOME/.config}/starship.toml"
+  _starship_bash_cfg="${XDG_CONFIG_HOME:-$HOME/.config}/starship-bash.toml"
+  if [[ -f "$_starship_cfg" && ( ! -f "$_starship_bash_cfg" || "$_starship_cfg" -nt "$_starship_bash_cfg" ) ]]; then
+    sed 's/truncate_to_repo = false/truncate_to_repo = false\nuse_os_path_sep = false/' "$_starship_cfg" > "$_starship_bash_cfg"
   fi
+  [[ -f "$_starship_bash_cfg" ]] && export STARSHIP_CONFIG="$_starship_bash_cfg"
 
-  # Window title: "path · branch" reusing the same value
-  local plain_branch="${b//[()]/}"   # strip parentheses
-  plain_branch="${plain_branch# }"   # strip leading space if present
-
-  local __title=$'\[\e]0;\w'
-  [[ -n "$plain_branch" ]] && __title+=$' · '"$plain_branch"
-  __title+=$'\007\]'
-
-  PS1="$__title\n"\
-"${_fg_lavender}\u@\h${_reset} "\
-"${_fg_blue}\w${_reset}"\
-"${_fg_mauve}${b}${_reset} "\
-"$(__prompt_status "$last")\n"\
-"\$ "
-}
-PROMPT_COMMAND="__make_ps1"
+  eval "$(starship init bash)"
+else
+  # Built-in path shortening: keep only last 3 dirs
+  PROMPT_DIRTRIM=3
+  PROMPT_COMMAND="__make_ps1"
+fi
 
 # Ensure the default Git for Windows "MINGW64" prompt doesn't leak in
 unset MSYSTEM

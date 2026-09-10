@@ -2,8 +2,19 @@
 Set-PSReadLineOption -BellStyle None
 # bash like powershell completion
 Set-PSReadlineKeyHandler -Key Tab -Function Complete
-# load my own version of catppuccin theme
-oh-my-posh init pwsh --config "$home/.config/oh-my-posh/catppuccin_macchiato.omp.json" | Invoke-Expression
+# Starship prompt
+if (-not (Get-Command starship -ErrorAction SilentlyContinue)) {
+  $wingetPath = "$env:LOCALAPPDATA\Microsoft\WinGet\Links"
+  if (Test-Path $wingetPath) { $env:PATH = "$wingetPath;$env:PATH" }
+}
+if (Get-Command starship -ErrorAction SilentlyContinue) {
+  Invoke-Expression (&starship init powershell)
+}
+
+# File styling: bold foreground blue for directories (remove default blue background block)
+if ($PSStyle) {
+  $PSStyle.FileInfo.Directory = "`e[34;1m"
+}
 
 function UnmountMlrNetworkDirs { net use * /delete }
 Set-Alias -Name unmountall -Value UnmountMlrNetworkDirs
@@ -26,3 +37,6 @@ Import-Module posh-git
 
 # zoxide setup
 Invoke-Expression (& { (zoxide init powershell | Out-String) })
+
+# Fast Node Manager (fnm) cd hook:
+fnm env --use-on-cd | Out-String | Invoke-Expression
