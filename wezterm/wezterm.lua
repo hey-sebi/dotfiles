@@ -8,8 +8,7 @@ config.automatically_reload_config = true
 config.term = "xterm-256color"
 
 -- looks
-config.color_scheme = "catppuccin-macchiato"
--- config.color_scheme = "Rosé Pine (Gogh)"
+config.color_scheme = "catppuccin-mocha"
 config.font = wezterm.font_with_fallback({
 	{ family = "JetBrainsMono Nerd Font" },
 	{ family = "Nerd Font Symbols" },
@@ -49,9 +48,10 @@ config.window_decorations = "RESIZE"
 config.window_close_confirmation = "AlwaysPrompt"
 config.enable_tab_bar = true
 
--- Customizing the tab bar appearance
+-- Customizing colors and tab bar appearance
 local active_tab_bg_color = "#c6a0f6"
 config.colors = {
+	-- background = "#11111b", -- Uncomment to override with Mocha Crust (pitch charcoal)
 	tab_bar = {
 		background = "#1e2030", -- Overall background of the tab bar
 
@@ -102,6 +102,9 @@ config.tab_and_split_indices_are_zero_based = false
 -- Default shell
 if wezterm.target_triple == "x86_64-pc-windows-msvc" then
 	config.default_prog = { "pwsh" }
+	config.set_environment_variables = {
+		POWERSHELL_UPDATECHECK = "Off",
+	}
 else
 	config.default_prog = { "zsh" }
 end
