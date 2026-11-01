@@ -66,7 +66,7 @@ function Link-Item([string]$Name, [string]$RepoRel, [string]$DestPath) {
       Write-Host "    $DestPath  ->  $TargetPath"
       if (-not $DryRun) {
         Ensure-Dir $repoDir
-        Copy-Item -LiteralPath $DestPath -Destination $TargetPath -Force
+        Copy-Item -LiteralPath $DestPath -Destination $TargetPath -Force -Recurse
       }
     } else {
       Write-Warning "  - Config file does neither exist in the repository or at the original location. Skipping."
